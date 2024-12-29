@@ -14,7 +14,6 @@ export default function AddPeople({session, goBack}) {
         const {error } = await supabase
             .from('peoples')
             .insert(people)
-        // console.log(e.target.name.value);
         if(error){
             console.log(error);
         }else if(!error){

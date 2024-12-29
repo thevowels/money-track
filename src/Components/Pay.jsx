@@ -1,10 +1,15 @@
 import {supabase} from "../utils/supabaseClient.js";
 import {format} from "date-fns";
 import { useState, useEffect } from "react";
+import AddPay from "./Pay/AddPay.jsx";
 export default function Pay({session}) {
     const [loading, setLoading] = useState(true);
     const [pays, setPays] = useState(null);
     const [error, setError] = useState(null);
+    const [display, setDisplay] = useState("primary");
+    function goBack() {
+        setDisplay('primary');
+    }
     useEffect(()=> {
         fetchPays();
     },[])
@@ -34,7 +39,7 @@ export default function Pay({session}) {
     if(loading) return <div>Loading...</div>;
 
 
-    return(
+    if(display === 'primary') return(
         <div>
             <table className="table table-striped table-hover pay-table">
             <caption>Pay Records</caption>
@@ -48,6 +53,8 @@ export default function Pay({session}) {
                     <th>Is Repaid</th>
                 </tr>
                 </thead>
+                <tbody>
+
                 {pays.length > 0 ? pays.map(p => <tr key={p.id}>
                     <td></td>
                     <td>{p.peoples.name}</td>
@@ -56,19 +63,31 @@ export default function Pay({session}) {
                     <td>{format(p.created_at, 'dd-MMMM-yyyy')}</td>
                     <td>{p.is_repaid ? 'YES':'NO'}</td>
                 </tr>) :
-                    <tr>
+
                         <tr className="text-center h-25">
-                            <td colSpan={5} style={{lineHeight: '100px'}}>
+                            <td colSpan={6} style={{lineHeight: '100px'}}>
                                 You have not add any Pay Record yet.
                                 <br/>
-                                <button className="btn btn-outline-primary">
+                                <button className="btn btn-outline-primary" onClick={() => setDisplay("add")}>
                                     Insert Record
                                 </button>
                             </td>
-                        </tr>
+                        </tr>}
+                </tbody>
 
-                    </tr>}
             </table>
+            {pays.length > 0 ? <div className={"text-end"}>
+                <button className="btn btn-outline-primary" onClick={()=>setDisplay('add')}>Insert Record</button>
+            </div>: null}
+
         </div>
     )
+
+    if(display === "add"){
+        return (
+            <>
+                <AddPay goBack={goBack}/>
+            </>
+        )
+    }
 }
