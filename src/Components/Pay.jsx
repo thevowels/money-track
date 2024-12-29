@@ -41,16 +41,16 @@ export default function Pay({session}) {
 
     if(display === 'primary') return(
         <div>
-            <table className="table table-striped table-hover pay-table">
+            <table className="table table-striped table-hover pay-table table-bordered">
             <caption>Pay Records</caption>
-                <thead className={'bg-info text-light'}>
+                <thead className={'bg-info text-light text-center'}>
                 <tr>
                     <th></th>
                     <th>Person</th>
                     <th>Amount</th>
-                    <th>Currency</th>
+                    <th className={"d-none d-sm-table-cell"}>Currency</th>
                     <th>Pay Date</th>
-                    <th>Is Repaid</th>
+                    <th>Repaid</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -59,9 +59,9 @@ export default function Pay({session}) {
                     <td></td>
                     <td>{p.peoples.name}</td>
                     <td>{p.amount}</td>
-                    <td>{p.currency}</td>
+                    <td className={"d-none d-sm-table-cell text-center"}>{p.currency}</td>
                     <td>{format(p.created_at, 'dd-MMM-yyyy')}</td>
-                    <td>{p.is_repaid ? 'YES':'NO'}</td>
+                    <td className={"text-center"}>{p.is_repaid ? 'YES':'NO'}</td>
                 </tr>) :
 
                         <tr className="text-center h-25">

@@ -38,14 +38,14 @@ export default function People({session}) {
     if(people && display === "primary") {
         return(
             <div>
-                <table className="table table-striped table-hover user-table">
+                <table className="table table-striped table-hover user-table table-bordered">
                     <caption>People list</caption>
-                    <thead className="bg-info text-light">
+                    <thead className="bg-info text-light text-center">
                     <tr>
                         <th></th>
                         <th>Name</th>
                         <th>Phone</th>
-                        <th>NRC</th>
+                        <th className={"d-none d-sm-table-cell"}>NRC</th>
                         <th className={"d-none d-sm-table-cell"}>Address</th>
                         <th></th>
                     </tr>
@@ -55,9 +55,9 @@ export default function People({session}) {
                             <td><input type={"checkbox"} name={'check' + p.id}/></td>
                             <td>{p.name}</td>
                             <td>{p.phone}</td>
-                            <td>{p.nrc}</td>
+                            <td className={"d-none d-sm-table-cell"}>{p.nrc}</td>
                             <td className={"d-none d-sm-table-cell"}>{p.address || '-'}</td>
-                            <td> <button className={"btn btn-outline-primary px-3"} onClick={()=>editPeople(p) }>Edit</button> </td>
+                            <td className={"text-center"}> <button className={"btn btn-outline-primary px-3"} onClick={()=>editPeople(p) }>Edit</button> </td>
                         </tr>) :
                         <tr className="text-center h-25" >
                             <td colSpan={5} style={{lineHeight:'100px'}}>
