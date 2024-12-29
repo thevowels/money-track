@@ -65,7 +65,7 @@ function App() {
         </div>}
         {session && console.log(session)}
         {tab === 'home' && <div className="container-fluid"> I'm Home</div>}
-        {tab === 'people' && <div className="container-fluid"><People/></div>}
+        {tab === 'people' && <div className="container-fluid"><People session={session}/></div>}
         {tab === 'pay' && <div className="container-fluid"> I'm Pay</div>}
         {tab === 'get' && <div className="container-fluid"> I'm Get</div>}
 

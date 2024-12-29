@@ -2,14 +2,15 @@ import {supabase} from "../utils/supabaseClient.js";
 import {useEffect, useState} from "react";
 import AddPeople from "./People/AddPeople.jsx";
 
-export default function People(props) {
+export default function People({session}) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [people, setPeople] = useState(null);
     const [display, setDisplay] = useState("primary");
+    const goBack = () => setDisplay("primary");
     useEffect(() => {
         const people = fetchPeople();
-    }, []);
+    }, [display]);
     async function fetchPeople() {
         setLoading(true);
         const {data, error} = await supabase.from('peoples').select('*');
@@ -70,7 +71,7 @@ export default function People(props) {
     if(display ==="add"){
         return(
             <>
-                <AddPeople/>
+                <AddPeople session={session} goBack={goBack}/>
             </>
         )
     }
