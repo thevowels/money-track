@@ -6,7 +6,7 @@ import { ThemeSupa } from '@supabase/auth-ui-shared'
 
 function App() {
     const [session, setSession] = useState(null);
-
+    const [tab, setTab] = useState('home');
     useEffect(() => {
         supabase.auth.getSession()
             .then(({data:{session}})=>{
@@ -33,16 +33,16 @@ function App() {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <button className="nav-link w-100">Home</button>
+                                <button className={"nav-link w-100 text-end px-2 " + (tab === 'home' ? "active":"")} onClick={() => setTab('home')}>Home</button>
                             </li>
                             <li className="nav-item">
-                                <button className="nav-link w-100">People</button>
+                                <button className={"nav-link w-100 text-end px-2 " + (tab === 'people' ? "active":"")} onClick={() => setTab('people')}>People</button>
                             </li>
                             <li className="nav-item">
-                                <button className="nav-link w-100">Pay</button>
+                                <button className={"nav-link w-100 text-end px-2 " + (tab === 'pay' ? "active":"")} onClick={() => setTab('pay')}>Pay</button>
                             </li>
                             <li className="nav-item">
-                                <button className="nav-link w-100">Get</button>
+                                <button className={"nav-link w-100 text-end px-2 " + (tab === 'get' ? "active":"")} onClick={() => setTab('get')}>Get</button>
                             </li>
                         </ul>
                     </div>
@@ -51,6 +51,7 @@ function App() {
 
         </div>}
         {session && console.log(session)}
+        {tab === 'home' && <div className="container-fluid"> I'm Home</div>}
 
     </div>
   )
