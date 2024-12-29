@@ -1,12 +1,14 @@
 import {supabase} from "../utils/supabaseClient.js";
 import {useEffect, useState} from "react";
 import AddPeople from "./People/AddPeople.jsx";
+import EditPeople from "./People/EditPeople.jsx";
 
 export default function People({session}) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [people, setPeople] = useState(null);
     const [display, setDisplay] = useState("primary");
+    const [toEdit, setToEdit] = useState(null);
     const goBack = () => setDisplay("primary");
     useEffect(() => {
         const people = fetchPeople();
@@ -21,6 +23,11 @@ export default function People({session}) {
             setPeople(data);
         }
         setLoading(false);
+    }
+    function editPeople(p){
+        setToEdit(p);
+        setDisplay("edit");
+
     }
 
     if(error) return <div>
@@ -40,6 +47,7 @@ export default function People({session}) {
                         <th>Phone</th>
                         <th>NRC</th>
                         <th className={"d-none d-sm-table-cell"}>Address</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -49,12 +57,13 @@ export default function People({session}) {
                             <td>{p.phone}</td>
                             <td>{p.nrc}</td>
                             <td className={"d-none d-sm-table-cell"}>{p.address || '-'}</td>
+                            <td> <button className={"btn btn-outline-primary px-3"} onClick={()=>editPeople(p) }>Edit</button> </td>
                         </tr>) :
                         <tr className="text-center h-25" >
                             <td colSpan={5} style={{lineHeight:'100px'}}>
                                 You have not add any people yet.
                                 <br/>
-                                <button className="btn btn-outline-primary" onClick={setDisplay('add')}>Add People</button>
+                                <button className="btn btn-outline-primary" onClick={() => setDisplay('add')}>Add People</button>
                             </td>
                         </tr>
                     }
@@ -63,7 +72,6 @@ export default function People({session}) {
                 {people.length > 0 ? <div className={"text-end"}>
                     <button className="btn btn-outline-primary" onClick={()=>setDisplay('add')}>Add People</button>
                 </div>: null}
-
             </div>
         )
 
@@ -72,6 +80,13 @@ export default function People({session}) {
         return(
             <>
                 <AddPeople session={session} goBack={goBack}/>
+            </>
+        )
+    }
+    if(display == "edit") {
+        return(
+            <>
+                <EditPeople toEdit={toEdit} goBack={goBack}/>
             </>
         )
     }
