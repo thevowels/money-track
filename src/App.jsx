@@ -4,6 +4,7 @@ import {supabase} from "./utils/supabaseClient.js";
 import {Auth} from "@supabase/auth-ui-react";
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import People from "./Components/People.jsx";
+import Pay from "./Components/Pay.jsx";
 
 function App() {
     const [session, setSession] = useState(null);
@@ -66,7 +67,7 @@ function App() {
         {session && console.log(session)}
         {tab === 'home' && <div className="container-fluid"> I'm Home</div>}
         {tab === 'people' && <div className="container-fluid"><People session={session}/></div>}
-        {tab === 'pay' && <div className="container-fluid"> I'm Pay</div>}
+        {tab === 'pay' && <div className="container-fluid"><Pay session={session}/></div>}
         {tab === 'get' && <div className="container-fluid"> I'm Get</div>}
 
     </div>

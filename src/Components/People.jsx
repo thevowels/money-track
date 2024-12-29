@@ -11,7 +11,7 @@ export default function People({session}) {
     const [toEdit, setToEdit] = useState(null);
     const goBack = () => setDisplay("primary");
     useEffect(() => {
-        const people = fetchPeople();
+        fetchPeople();
     }, [display]);
     async function fetchPeople() {
         setLoading(true);
