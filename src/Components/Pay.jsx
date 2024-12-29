@@ -1,4 +1,5 @@
 import {supabase} from "../utils/supabaseClient.js";
+import {format} from "date-fns";
 import { useState, useEffect } from "react";
 export default function Pay({session}) {
     const [loading, setLoading] = useState(true);
@@ -52,7 +53,7 @@ export default function Pay({session}) {
                     <td>{p.peoples.name}</td>
                     <td>{p.amount}</td>
                     <td>{p.currency}</td>
-                    <td>{p.created_at}</td>
+                    <td>{format(p.created_at, 'dd-MMMM-yyyy')}</td>
                     <td>{p.is_repaid ? 'YES':'NO'}</td>
                 </tr>) :
                     <tr>
