@@ -1,10 +1,12 @@
 import {supabase} from "../utils/supabaseClient.js";
 import {useEffect, useState} from "react";
+import AddPeople from "./People/AddPeople.jsx";
 
 export default function People(props) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [people, setPeople] = useState(null);
+    const [display, setDisplay] = useState("primary");
     useEffect(() => {
         const people = fetchPeople();
     }, []);
@@ -25,13 +27,11 @@ export default function People(props) {
         <p>{error.message}</p>
     </div>;
     if(loading) return <div>Loading...</div>;
-    if(people){
+    if(people && display === "primary") {
         return(
             <div>
-                {people.map(p => <div key={p.id}>{p.name}</div>)}
                 <table className="table table-striped table-hover user-table">
                     <caption>People list</caption>
-
                     <thead className="bg-info text-light">
                     <tr>
                         <th></th>
@@ -53,15 +53,25 @@ export default function People(props) {
                             <td colSpan={5} style={{lineHeight:'100px'}}>
                                 You have not add any people yet.
                                 <br/>
-                                <button className="btn btn-primary">Add People</button>
+                                <button className="btn btn-outline-primary" onClick={setDisplay('add')}>Add People</button>
                             </td>
                         </tr>
                     }
                     </tbody>
                 </table>
+                {people.length > 0 ? <div className={"text-end"}>
+                    <button className="btn btn-outline-primary" onClick={()=>setDisplay('add')}>Add People</button>
+                </div>: null}
 
             </div>
         )
 
+    }
+    if(display ==="add"){
+        return(
+            <>
+                <AddPeople/>
+            </>
+        )
     }
 }
