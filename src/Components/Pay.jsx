@@ -12,7 +12,7 @@ export default function Pay({session}) {
     }
     useEffect(()=> {
         fetchPays();
-    },[])
+    },[display])
     async function fetchPays() {
         console.log('fetching');
         setLoading(true);
@@ -60,7 +60,7 @@ export default function Pay({session}) {
                     <td>{p.peoples.name}</td>
                     <td>{p.amount}</td>
                     <td>{p.currency}</td>
-                    <td>{format(p.created_at, 'dd-MMMM-yyyy')}</td>
+                    <td>{format(p.created_at, 'dd-MMM-yyyy')}</td>
                     <td>{p.is_repaid ? 'YES':'NO'}</td>
                 </tr>) :
 
@@ -86,7 +86,7 @@ export default function Pay({session}) {
     if(display === "add"){
         return (
             <>
-                <AddPay goBack={goBack}/>
+                <AddPay session={session} goBack={goBack}/>
             </>
         )
     }

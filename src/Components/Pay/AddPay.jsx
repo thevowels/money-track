@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {supabase} from "../../utils/supabaseClient.js";
 
-export default function AddPay({goBack}) {
+export default function AddPay({session, goBack}) {
 
     const [persons, setPersons] = useState([]);
     const [error, setError] = useState(null);
@@ -15,7 +15,6 @@ export default function AddPay({goBack}) {
         if(error){
             setError(error);
         }else {
-            console.log('Add Pay persons', data);
             setPersons(data);
             if(data.length === 0){
                 setError(new Error('You need to add people first'));
@@ -23,21 +22,30 @@ export default function AddPay({goBack}) {
         }
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
 
         // allow inserts only if the person_id is one of the created person.
         if( !persons.map(p => p.id).includes(e.target.person.value) ){
             alert('You need to choose a valid person')
             return;
+        }else if(e.target.amount.value <=0 ){
+            alert('You need to add a valid amount');
+            return;
         }
         const record = {
             person_id: e.target.person.value,
             amount: e.target.amount.value,
             currency: e.target.currency.value,
+            user_id: session.user.id
         }
-
-        console.log(record);
+        const { err } = await supabase.from('pay_records').insert(record);
+        if(err){
+            console.log(err);
+        }else{
+            goBack();
+        }
+        // console.log(record);
 
     }
     if(error) return <div>
