@@ -19,7 +19,6 @@ export default function People({session}) {
         if(error) {
             setError(error);
         }else if(data) {
-            console.log(data);
             setPeople(data);
         }
         setLoading(false);
@@ -48,6 +47,7 @@ export default function People({session}) {
                         <th className={"d-none d-sm-table-cell"}>NRC</th>
                         <th className={"d-none d-sm-table-cell"}>Address</th>
                         <th></th>
+
                     </tr>
                     </thead>
                     <tbody>

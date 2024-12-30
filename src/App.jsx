@@ -10,6 +10,8 @@ function App() {
     const [session, setSession] = useState(null);
     const [tab, setTab] = useState('home');
     useEffect(() => {
+        console.log('I log because its under development yet.')
+        console.log("On form>select, I had to use default as I don't want to select user by default ")
         supabase.auth.getSession()
             .then(({data:{session}})=>{
                 setSession(session);
@@ -64,7 +66,6 @@ function App() {
             </nav>
 
         </div>}
-        {session && console.log(session)}
         {tab === 'home' && <div className="container-fluid"> I'm Home</div>}
         {tab === 'people' && <div className="container-fluid"><People session={session}/></div>}
         {tab === 'pay' && <div className="container-fluid"><Pay session={session}/></div>}
