@@ -20,6 +20,9 @@ function App() {
             setSession(session);
         })
     },[])
+    useEffect(() =>{
+        document.title = tab.toUpperCase();
+    },[tab])
 
   return (
     <div className="container">
