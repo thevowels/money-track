@@ -1,5 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "bootstrap/scss/bootstrap";
 
-.user-table {
-  color: #646cff !important;
+
+.HomeTop{
+  background-image: linear-gradient(to right, #0f0fc7, #1919e6);
+  height: 300px;
+  width: 100%;
+  color: white;
+}
+.welcome{
+  padding-top: 60px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'PT Serif', sans-serif;
+
+}
+.homeInfo{
+  margin-top: -60px;
+}
+.info-gap{
+  gap: 5rem;
 }

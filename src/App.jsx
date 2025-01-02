@@ -5,6 +5,7 @@ import {Auth} from "@supabase/auth-ui-react";
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import People from "./Components/People.jsx";
 import Pay from "./Components/Pay.jsx";
+import Home from "./Components/Home.jsx";
 
 function App() {
     const [session, setSession] = useState(null);
@@ -25,19 +26,20 @@ function App() {
     },[tab])
 
   return (
-    <div className="container">
+    <div >
         {!session ?<div className={"col-md-8 col-lg-5 mx-auto px-5"}>
             <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }}/>
-        </div>: <div>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="#">Money Track</a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+        </div>: <div >
+            <div className="container">
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <div className="container-fluid">
+                        <a className="navbar-brand" href="#">Money Track</a>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
                                     <button
@@ -64,15 +66,18 @@ function App() {
                                     </button>
                                 </li>
                             </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
 
-        </div>}
-        {tab === 'home' && <div className="container-fluid"> I'm Home</div>}
-        {tab === 'people' && <div className="container-fluid"><People session={session}/></div>}
-        {tab === 'pay' && <div className="container-fluid"><Pay session={session}/></div>}
-        {tab === 'get' && <div className="container-fluid"> I'm Get</div>}
+            </div>
+            {tab === 'home' && <div><Home session={session}/></div>}
+            {tab === 'people' && <div className="container-fluid"><People session={session}/></div>}
+            {tab === 'pay' && <div className="container-fluid"><Pay session={session}/></div>}
+            {tab === 'get' && <div className="container-fluid"> I'm Get</div>}
+
+        </div>
+        }
 
     </div>
   )
