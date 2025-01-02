@@ -21,7 +21,7 @@ function App() {
         })
     },[])
     useEffect(() =>{
-        document.title = tab.toUpperCase();
+        document.title = 'Money Track '+ tab.toUpperCase();
     },[tab])
 
   return (

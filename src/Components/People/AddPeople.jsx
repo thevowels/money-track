@@ -1,5 +1,11 @@
 import {supabase} from "../../utils/supabaseClient.js";
+import {useEffect} from "react";
+import tab from "bootstrap/js/src/tab.js";
 export default function AddPeople({session, goBack}) {
+
+    useEffect(() => {
+        document.title = 'Add Person';
+    },[])
 
     async function handleSubmit(e){
         e.preventDefault();

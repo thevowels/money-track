@@ -2,17 +2,23 @@ import {supabase} from "../utils/supabaseClient.js";
 import {useEffect, useState} from "react";
 import AddPeople from "./People/AddPeople.jsx";
 import EditPeople from "./People/EditPeople.jsx";
-
+import * as bootstrap from "bootstrap";
 export default function People({session}) {
+    const [pinCode, setPinCode] = useState("1234");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [people, setPeople] = useState(null);
     const [display, setDisplay] = useState("primary");
     const [toEdit, setToEdit] = useState(null);
     const [toRemove, setToRemove] = useState(null);
+
+
+
     const goBack = () => setDisplay("primary");
     useEffect(() => {
+
         fetchPeople();
+        // console.log(myModal);
     }, [display]);
     async function fetchPeople() {
         setLoading(true);
@@ -32,9 +38,28 @@ export default function People({session}) {
     async function removePeople(){
         console.log(toRemove);
         var myModalEl = document.querySelector('#exampleModal');
-        myModalEl.display="none"
-        myModalEl.classList.remove('show');
-        document.getElementsByClassName("modal-backdrop")[0].remove();
+        var inputPin = document.getElementById("confirmPin").value;
+
+        console.log(inputPin);
+        if(inputPin == pinCode ){
+            myModalEl.display="none"
+            myModalEl.classList.remove('show');
+            document.getElementsByClassName("modal-backdrop")[0].remove();
+            const response = await supabase
+                .from('peoples')
+                .delete()
+                .eq('id', toRemove.id);
+            if(response.status === 204){
+                alert("You've successfully removed " + toRemove.name);
+                fetchPeople();
+            }else{
+                console.log('something went wrong & ' , response);
+            }
+
+        }else {
+            alert("Incorrect Pin");
+        }
+
 
     }
 
@@ -59,6 +84,9 @@ export default function People({session}) {
                             </div>
                             <div className="modal-body">
                                 Are you sure you want to remove {toRemove ? toRemove.name:''}
+                                <br/>
+                                Type In 1234 to confirm
+                                <input type={"password"} name={"confirmPin"} className={"form-control"} id={"confirmPin"}/>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close
@@ -96,7 +124,7 @@ export default function People({session}) {
                                 <button className={"btn btn-outline-primary px-3 me-1 btn-sm"}
                                         onClick={() => editPeople(p)}>Edit
                                 </button>
-                                <button className={"btn btn-outline-primary px-3 btn-sm m"} data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                <button className={"btn btn-outline-danger px-3 btn-sm m"} data-bs-toggle="modal" data-bs-target="#exampleModal"
                                         onClick={() => setToRemove(p)}>Remove
                                 </button>
                             </td>
