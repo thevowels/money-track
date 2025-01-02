@@ -2,7 +2,9 @@ import {supabase} from "../utils/supabaseClient.js";
 import {useEffect, useState} from "react";
 import AddPeople from "./People/AddPeople.jsx";
 import EditPeople from "./People/EditPeople.jsx";
-import * as bootstrap from "bootstrap";
+import Modal from 'react-bootstrap/Modal';
+import {Button} from "react-bootstrap";
+
 export default function People({session}) {
     const [pinCode, setPinCode] = useState("1234");
     const [loading, setLoading] = useState(true);
@@ -12,14 +14,22 @@ export default function People({session}) {
     const [toEdit, setToEdit] = useState(null);
     const [toRemove, setToRemove] = useState(null);
 
+    // Modal Controllers
+    const [infoShow, setInfoShow] = useState(false);
+    const handleInfoShow = () =>setInfoShow(true);
+    const handleInfoClose = () =>setInfoShow(false);
 
 
     const goBack = () => setDisplay("primary");
     useEffect(() => {
 
         fetchPeople();
-        // console.log(myModal);
     }, [display]);
+    function handleInfo(p) {
+        setToEdit(p);
+        handleInfoShow();
+    }
+
     async function fetchPeople() {
         setLoading(true);
         const {data, error} = await supabase.from('peoples').select('*');
@@ -73,6 +83,24 @@ export default function People({session}) {
             <div>
 
                 {/*Modal*/}
+
+                <Modal show={infoShow} onHide={handleInfoClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{toEdit ? toEdit.name : " "}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleInfoClose}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={handleInfoShow}>
+                            Save Changes
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
+
+
                 <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
                     <div className="modal-dialog">
@@ -116,7 +144,7 @@ export default function People({session}) {
                     <tbody>
                     {people.length > 0 ? people.map(p => <tr key={p.id}>
                             <td><input type={"checkbox"} name={'check' + p.id}/></td>
-                            <td>{p.name}</td>
+                            <td onClick={() => handleInfo(p)}>{p.name}</td>
                             <td>{p.phone}</td>
                             <td className={"d-none d-sm-table-cell"}>{p.nrc}</td>
                             <td className={"d-none d-sm-table-cell"}>{p.address || '-'}</td>
