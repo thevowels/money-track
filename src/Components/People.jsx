@@ -4,6 +4,7 @@ import AddPeople from "./People/AddPeople.jsx";
 import EditPeople from "./People/EditPeople.jsx";
 import Modal from 'react-bootstrap/Modal';
 import {Button} from "react-bootstrap";
+import PersonCard from "./People/PersonCard.jsx";
 
 export default function People({session}) {
     const [pinCode, setPinCode] = useState("1234");
@@ -80,6 +81,8 @@ export default function People({session}) {
     if(loading) return <div>Loading...</div>;
     if(people && display === "primary") {
         return(
+            <div className={"container"}>
+
             <div>
 
                 {/*Modal*/}
@@ -128,51 +131,56 @@ export default function People({session}) {
 
                 {/*Modal*/}
 
-                <table className="table table-striped table-hover user-table table-bordered">
-                    <caption>People list</caption>
-                    <thead className="bg-info text-light text-center">
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th className={"d-none d-sm-table-cell"}>NRC</th>
-                        <th className={"d-none d-sm-table-cell"}>Address</th>
-                        <th></th>
+                {/*<table className="table table-striped table-hover user-table table-bordered">*/}
+                {/*    <caption>People list</caption>*/}
+                {/*    <thead className="bg-info text-light text-center">*/}
+                {/*    <tr>*/}
+                {/*        <th></th>*/}
+                {/*        <th>Name</th>*/}
+                {/*        <th>Phone</th>*/}
+                {/*        <th className={"d-none d-sm-table-cell"}>NRC</th>*/}
+                {/*        <th className={"d-none d-sm-table-cell"}>Address</th>*/}
+                {/*        <th></th>*/}
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {people.length > 0 ? people.map(p => <tr key={p.id}>
-                            <td><input type={"checkbox"} name={'check' + p.id}/></td>
-                            <td onClick={() => handleInfo(p)}>{p.name}</td>
-                            <td>{p.phone}</td>
-                            <td className={"d-none d-sm-table-cell"}>{p.nrc}</td>
-                            <td className={"d-none d-sm-table-cell"}>{p.address || '-'}</td>
-                            <td className={"text-center"}>
-                                <button className={"btn btn-outline-primary px-3 me-1 btn-sm"}
-                                        onClick={() => editPeople(p)}>Edit
-                                </button>
-                                <button className={"btn btn-outline-danger px-3 btn-sm m"} data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                        onClick={() => setToRemove(p)}>Remove
-                                </button>
-                            </td>
-                        </tr>) :
-                        <tr className="text-center h-25">
-                            <td colSpan={5} style={{lineHeight: '100px'}}>
-                                You have not add any people yet.
-                                <br/>
-                                <button className="btn btn-outline-primary" onClick={() => setDisplay('add')}>Add
-                                    People
-                                </button>
-                            </td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
+                {/*    </tr>*/}
+                {/*    </thead>*/}
+                {/*    <tbody>*/}
+                {/*    {people.length > 0 ? people.map(p => <tr key={p.id}>*/}
+                {/*            <td><input type={"checkbox"} name={'check' + p.id}/></td>*/}
+                {/*            <td onClick={() => handleInfo(p)}>{p.name}</td>*/}
+                {/*            <td>{p.phone}</td>*/}
+                {/*            <td className={"d-none d-sm-table-cell"}>{p.nrc}</td>*/}
+                {/*            <td className={"d-none d-sm-table-cell"}>{p.address || '-'}</td>*/}
+                {/*            <td className={"text-center"}>*/}
+                {/*                <button className={"btn btn-outline-primary px-3 me-1 btn-sm"}*/}
+                {/*                        onClick={() => editPeople(p)}>Edit*/}
+                {/*                </button>*/}
+                {/*                <button className={"btn btn-outline-danger px-3 btn-sm m"} data-bs-toggle="modal" data-bs-target="#exampleModal"*/}
+                {/*                        onClick={() => setToRemove(p)}>Remove*/}
+                {/*                </button>*/}
+                {/*            </td>*/}
+                {/*        </tr>) :*/}
+                {/*        <tr className="text-center h-25">*/}
+                {/*            <td colSpan={5} style={{lineHeight: '100px'}}>*/}
+                {/*                You have not add any people yet.*/}
+                {/*                <br/>*/}
+                {/*                <button className="btn btn-outline-primary" onClick={() => setDisplay('add')}>Add*/}
+                {/*                    People*/}
+                {/*                </button>*/}
+                {/*            </td>*/}
+                {/*        </tr>*/}
+                {/*    }*/}
+                {/*    </tbody>*/}
+                {/*</table>*/}
+                {people.length > 0 ? <div className={"row gap-3"}>
+                    {people.map(p => <div key={p.id} className={"col mx-auto"}><PersonCard person={p}></PersonCard></div>)}
+                </div> :null}
                 {people.length > 0 ? <div className={"text-end"}>
                     <button className="btn btn-outline-primary" onClick={() => setDisplay('add')}>Add People</button>
                 </div> : null}
             </div>
+            </div>
+
         )
 
     }
