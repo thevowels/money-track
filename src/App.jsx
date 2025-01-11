@@ -55,18 +55,18 @@ function App() {
                                         onClick={() => setTab('people')}>People
                                     </button>
                                 </li>
-                                <li className="nav-item">
-                                    <button
-                                        className={"nav-link w-100 text-end px-2 " + (tab === 'pay' ? "active" : "")}
-                                        onClick={() => setTab('pay')}>Pay
-                                    </button>
-                                </li>
-                                <li className="nav-item">
-                                    <button
-                                        className={"nav-link w-100 text-end px-2 " + (tab === 'get' ? "active" : "")}
-                                        onClick={() => setTab('get')}>Get
-                                    </button>
-                                </li>
+                                {/*<li className="nav-item">*/}
+                                {/*    <button*/}
+                                {/*        className={"nav-link w-100 text-end px-2 " + (tab === 'pay' ? "active" : "")}*/}
+                                {/*        onClick={() => setTab('pay')}>Pay*/}
+                                {/*    </button>*/}
+                                {/*</li>*/}
+                                {/*<li className="nav-item">*/}
+                                {/*    <button*/}
+                                {/*        className={"nav-link w-100 text-end px-2 " + (tab === 'get' ? "active" : "")}*/}
+                                {/*        onClick={() => setTab('get')}>Get*/}
+                                {/*    </button>*/}
+                                {/*</li>*/}
                             </ul>
                         </div>
                     </div>
@@ -75,8 +75,8 @@ function App() {
             </div>
             {tab === 'home' && <div><Home session={session}/></div>}
             {tab === 'people' && <div className="container-fluid"><People session={session} setPerson={setPerson} setTab={setTab}/></div>}
-            {tab === 'pay' && <div className="container-fluid"><Pay session={session}/></div>}
-            {tab === 'get' && <div className="container-fluid"> I'm Get</div>}
+            {/*{tab === 'pay' && <div className="container-fluid"><Pay session={session}/></div>}*/}
+            {/*{tab === 'get' && <div className="container-fluid"> I'm Get</div>}*/}
             {tab === 'person' && !person && <div className="container-fluid">It shouldn't be happened</div>}
             {tab === 'person' && person && <div className="container-fluid"><PersonDetail person={person} session={session}/> </div>}
 

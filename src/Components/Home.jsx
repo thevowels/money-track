@@ -5,17 +5,27 @@ import { AiFillUpCircle, AiFillDownCircle } from "react-icons/ai";
 import currency from "currency.js";
 import InfoCard from "./People/InfoCard.jsx";
 import PersonCard from "./People/PersonCard.jsx";
+import {format} from "date-fns";
 
 export default function Home({session}) {
     const [overall, setOverall] = useState({loan:0,return:0});
+    const [transactions, setTransactions] = useState([]);
     useEffect(()=>{
         let loan_return= {loan:0,return:0}
         supabase.from("loan_return")
-            .select("*")
+            .select(`
+                *,
+                peoples(
+                    *
+                )
+            `)
+            .order('created_at',{ascending: false})
+            .limit(15)
             .then(({data, error})=>{
                 if(error){
                     console.log(error)
                 }else if(data){
+                    setTransactions(data);
                     data.forEach((record)=>{
                         if(record.loan){
                             loan_return['loan']+=record.amount;
@@ -26,6 +36,7 @@ export default function Home({session}) {
                     setOverall(loan_return);
                 }
             })
+
     },[])
 
     return(
@@ -79,6 +90,24 @@ export default function Home({session}) {
                         </Card>
                     </div>
 
+                </div>
+                    <div className={"col-sm-auto col-md-9 offset-md-1 pt-5 text-center primary-font"}>
+                        <h3 className={"pb-2"} >Recent Transaction Records </h3>
+                        {transactions.length == 0 && <div className={"container"}> You don't have transactions yet</div>}
+                        {transactions && transactions.map(transaction => <div key={transaction.id} className={"row transactions"}>
+                            <div className={"col-3 offset-1 text-start"}>{transaction.peoples.name}</div>
+                            <div className={"col-3 text-end"} style={{'color': transaction.loan ? 'red':'green'}}>{currency(transaction.amount, {separator: ',', symbol: "", precision: 0}).format()}</div>
+                            <div className={"col-5"}>
+                                <div className={"row"}>
+                                    <div className={"col-5 p-0 text-end"}> {format(transaction.created_at, 'dd MMM yyyy')}
+                                    </div>
+                                    <div className={"col-3 p-0 text-center align-items-center"}> {format(transaction.created_at, 'h:mm')}
+                                    </div>
+                                    <div className={"col-2  p-0 text-start"}> {format(transaction.created_at, 'a')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>)}
                 </div>
             </div>
         </div>
