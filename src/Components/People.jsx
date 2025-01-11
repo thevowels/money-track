@@ -23,8 +23,42 @@ export default function People({session, setPerson, setTab}) {
 
     const goBack = () => setDisplay("primary");
     useEffect(() => {
+        setLoading(true);
+        supabase.from('peoples')
+            .select('*')
+            .then(({data: Pdata,error})=>{
+                if(error){
+                    setError(error);
+                }else if(Pdata){
+                    supabase.from('loan_return')
+                        .select('*')
+                        .then(({data,error})=>{
+                            if(error){
+                                setError(error);
+                            }else if(data){
+                                let tempData={};
+                                data.forEach((item) => {
+                                    if(item.loan){
+                                        tempData[item.person_id] ? tempData[item.person_id] += item.amount : tempData[item.person_id]= item.amount;
+                                    }else{
+                                        tempData[item.person_id] ? tempData[item.person_id] -= item.amount : tempData[item.person_id]= - item.amount;
+                                    }
+                                })
+                                setPeople(Pdata.map((item) => {
+                                    if(tempData[item.id]){
+                                        let k = item;
+                                        k["outstanding_amount"]=tempData[item.id];
+                                        return k
+                                    }else{
+                                        return item;
+                                    }
+                                }));
 
-        fetchPeople();
+                            }
+                        })
+                    setLoading(false);
+                }
+            })
     }, [display]);
     function handleInfo(p) {
         setToEdit(p);
@@ -32,14 +66,7 @@ export default function People({session, setPerson, setTab}) {
     }
 
     async function fetchPeople() {
-        setLoading(true);
-        const {data, error} = await supabase.from('peoples').select('*');
-        if(error) {
-            setError(error);
-        }else if(data) {
-            setPeople(data);
-        }
-        setLoading(false);
+
     }
     function editPeople(p){
         setToEdit(p);
