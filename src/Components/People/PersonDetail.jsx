@@ -6,6 +6,8 @@ import Table from 'react-bootstrap/Table';
 
 import { AiOutlinePhone, AiOutlinePicLeft } from "react-icons/ai";
 import { BiMap } from "react-icons/bi";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 import {Suspense, useState} from "react";
 import Transactions from "./Transactions.jsx";
@@ -14,10 +16,32 @@ export default function PersonDetail({person}){
 
     const [loading, setLoading] = useState(false);
     const [display, setDisplay] = useState("default");
+
+    const [transactionadd, setTransactionadd] = useState(false);
+    const handleTAClose = () =>setTransactionadd(false);
+    const handleTAShow = () => setTransactionadd(true);
+
+
     console.log(person);
     if(display === "default"){
         return(
             <div>
+
+                <Modal show={transactionadd} onHide={handleTAClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleTAClose}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={handleTAShow}>
+                            Save Changes
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
 
                 <div className={"person-top"}>
                 </div>
@@ -76,7 +100,7 @@ export default function PersonDetail({person}){
                             </Suspense>
 
                             <div>
-                                <button className={"btn btn-primary"}>Add Record</button>
+                                <button className={"btn btn-primary"} onClick={handleTAShow}>Add Record</button>
                             </div>
                         </Col>
                     </Card>

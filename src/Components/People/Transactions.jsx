@@ -1,6 +1,7 @@
 import {Suspense, useEffect, useState} from "react";
 import Table from "react-bootstrap/Table";
 import {supabase} from "../../utils/supabaseClient.js";
+import {format} from "date-fns";
 
 export default function  Transactions({person_id}) {
 
@@ -42,29 +43,20 @@ export default function  Transactions({person_id}) {
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Loan/Return</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td colSpan={2}>Larry the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    {transactions.map((transaction, index) => (
+                        <tr key={transaction.id}>
+                            <td>{index}</td>
+                            <td>{format(transaction.created_at, 'dd-MMM-yyyy')}</td>
+                            <td>{transaction.amount}</td>
+                            <td>{transaction.loan ? "Loan": "Return"}</td>
+                        </tr>
+                        ))}
                     </tbody>
                 </Table>
 
