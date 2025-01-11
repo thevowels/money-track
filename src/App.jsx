@@ -6,10 +6,12 @@ import { ThemeSupa } from '@supabase/auth-ui-shared'
 import People from "./Components/People.jsx";
 import Pay from "./Components/Pay.jsx";
 import Home from "./Components/Home.jsx";
+import PersonDetail from "./Components/People/PersonDetail.jsx";
 
 function App() {
     const [session, setSession] = useState(null);
     const [tab, setTab] = useState('home');
+    const [person, setPerson] = useState(null);
     useEffect(() => {
         console.log('I log because its under development yet.')
         console.log("On form>select, I had to use default as I don't want to select user by default ")
@@ -72,9 +74,11 @@ function App() {
 
             </div>
             {tab === 'home' && <div><Home session={session}/></div>}
-            {tab === 'people' && <div className="container-fluid"><People session={session}/></div>}
+            {tab === 'people' && <div className="container-fluid"><People session={session} setPerson={setPerson} setTab={setTab}/></div>}
             {tab === 'pay' && <div className="container-fluid"><Pay session={session}/></div>}
             {tab === 'get' && <div className="container-fluid"> I'm Get</div>}
+            {tab === 'person' && !person && <div className="container-fluid">It shouldn't be happened</div>}
+            {tab === 'person' && person && <div className="container-fluid"><PersonDetail person={person}/> </div>}
 
         </div>
         }

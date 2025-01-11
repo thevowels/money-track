@@ -5,8 +5,7 @@ import Image from 'react-bootstrap/Image';
 import currency from "currency.js";
 
 export default function PersonCard({person}){
-    console.log(person);
-    return (
+        return (
         <Card style={{ width: '18rem' }} className="mx-auto">
             <Card.Body>
                 <div className="text-center">
@@ -20,10 +19,10 @@ export default function PersonCard({person}){
                     <div className="col-3 p-0 text-end text-muted">
                         Loan
                     </div>
-                    <div className={"col-3 text-end text-muted"}>
+                    <div className={"col-5 text-end text-muted"}>
                         {currency(3000, {separator: ',', symbol: "", precision: 0}).format()}
                     </div>
-                    <div className={"col-3 text-muted"}>
+                    <div className={"col-2 p-0 text-muted"}>
                         MMK
                     </div>
                 </div>
@@ -31,10 +30,10 @@ export default function PersonCard({person}){
                     <div className="col-3 p-0 text-end text-muted">
                         Repaid
                     </div>
-                    <div className={"col-3 text-end text-muted"}>
+                    <div className={"col-5 text-end text-muted"}>
                         {currency(3000, {separator: ',', symbol: "", precision: 0}).format()}
                     </div>
-                    <div className={"col-3 text-muted"}>
+                    <div className={"col-2 p-0 text-muted"}>
                         MMK
                     </div>
                 </div>
@@ -42,13 +41,13 @@ export default function PersonCard({person}){
                     <div className="col-3 p-0 text-end">
                         Total
                     </div>
-                    <div className={"col-3 text-end"}>
-                        {currency(3000, {separator: ',', symbol: "", precision: 0}).format()}
+                    <div className={"col-5 text-end"}>
+                        {currency(person.outstanding_amount, {separator: ',', symbol: "", precision: 0}).format()}
                     </div>
-                    <div className={"col-3 "}>
+                    <div className={"col-2 p-0 "}>
                         MMK
                     </div>
-                    <div className={"col-3"}>
+                    <div className={"col-2 p-0 text-center"}>
                         <AiFillDownCircle color={"red"}/>
                     </div>
                 </div>

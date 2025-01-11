@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "bootstrap/scss/bootstrap";
-
+@import "./person";
 
 .HomeTop{
   background-image: linear-gradient(to right, #0f0fc7, #1919e6);
@@ -8,6 +8,17 @@
   width: 100%;
   color: white;
 }
+.person-top{
+  background-image: linear-gradient(to right, #0f0fc7, #1919e6);
+  height: 200px;
+  width: 100%;
+  color: white;
+}
+
+.person-head{
+  margin-top: -60px;
+}
+
 .welcome{
   padding-top: 60px;
   font-size: 30px;

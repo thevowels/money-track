@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import {Button} from "react-bootstrap";
 import PersonCard from "./People/PersonCard.jsx";
 
-export default function People({session}) {
+export default function People({session, setPerson, setTab}) {
     const [pinCode, setPinCode] = useState("1234");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -47,11 +47,10 @@ export default function People({session}) {
 
     }
     async function removePeople(){
-        console.log(toRemove);
         var myModalEl = document.querySelector('#exampleModal');
         var inputPin = document.getElementById("confirmPin").value;
 
-        console.log(inputPin);
+        // console.log(inputPin);
         if(inputPin == pinCode ){
             myModalEl.display="none"
             myModalEl.classList.remove('show');
@@ -172,12 +171,17 @@ export default function People({session}) {
                 {/*    }*/}
                 {/*    </tbody>*/}
                 {/*</table>*/}
-                {people.length > 0 ? <div className={"row gap-3"}>
-                    {people.map(p => <div key={p.id} className={"col mx-auto"}><PersonCard person={p}></PersonCard></div>)}
-                </div> :null}
-                {people.length > 0 ? <div className={"text-end"}>
-                    <button className="btn btn-outline-primary" onClick={() => setDisplay('add')}>Add People</button>
+                {people.length > 0 ? <div className={"text-center p-5"}>
+                    <button className="btn btn-outline-primary" onClick={() => setDisplay('add')}>Add New Person</button>
                 </div> : null}
+
+                {people.length > 0 ? <div className={"row gap-2"}>
+                    {people.map(p => <div key={p.id} className={"col mx-auto"} onClick={() =>{
+                        setPerson(p);
+                        setTab('person')
+
+                    }}><PersonCard person={p}></PersonCard></div>)}
+                </div> :null}
             </div>
             </div>
 
