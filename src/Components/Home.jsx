@@ -8,6 +8,10 @@ import PersonCard from "./People/PersonCard.jsx";
 
 export default function Home({session}) {
 
+    useEffect(()=>{
+
+    },[])
+
     return(
         <div className="Home">
             <div className="HomeTop">

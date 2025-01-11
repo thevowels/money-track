@@ -15,31 +15,31 @@ export default function PersonCard({person}){
                 <div className="person-name">
                     {person && person.name}
                 </div>
-                <div className={"row person-money"}>
-                    <div className="col-3 p-0 text-end text-muted">
-                        Loan
-                    </div>
-                    <div className={"col-5 text-end text-muted"}>
-                        {currency(3000, {separator: ',', symbol: "", precision: 0}).format()}
-                    </div>
-                    <div className={"col-2 p-0 text-muted"}>
-                        MMK
-                    </div>
-                </div>
-                <div className={"row person-money"}>
-                    <div className="col-3 p-0 text-end text-muted">
-                        Repaid
-                    </div>
-                    <div className={"col-5 text-end text-muted"}>
-                        {currency(3000, {separator: ',', symbol: "", precision: 0}).format()}
-                    </div>
-                    <div className={"col-2 p-0 text-muted"}>
-                        MMK
-                    </div>
-                </div>
+                {/*<div className={"row person-money"}>*/}
+                {/*    <div className="col-3 p-0 text-end text-muted">*/}
+                {/*        Loan*/}
+                {/*    </div>*/}
+                {/*    <div className={"col-5 text-end text-muted"}>*/}
+                {/*        {currency(3000, {separator: ',', symbol: "", precision: 0}).format()}*/}
+                {/*    </div>*/}
+                {/*    <div className={"col-2 p-0 text-muted"}>*/}
+                {/*        MMK*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                {/*<div className={"row person-money"}>*/}
+                {/*    <div className="col-3 p-0 text-end text-muted">*/}
+                {/*        Repaid*/}
+                {/*    </div>*/}
+                {/*    <div className={"col-5 text-end text-muted"}>*/}
+                {/*        {currency(3000, {separator: ',', symbol: "", precision: 0}).format()}*/}
+                {/*    </div>*/}
+                {/*    <div className={"col-2 p-0 text-muted"}>*/}
+                {/*        MMK*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 <div className={"row person-money"}>
                     <div className="col-3 p-0 text-end">
-                        Total
+
                     </div>
                     <div className={"col-5 text-end"}>
                         {currency(person.outstanding_amount, {separator: ',', symbol: "", precision: 0}).format()}
@@ -48,7 +48,8 @@ export default function PersonCard({person}){
                         MMK
                     </div>
                     <div className={"col-2 p-0 text-center"}>
-                        <AiFillDownCircle color={"red"}/>
+                        {person.outstanding_amount <= 300000 && <AiFillDownCircle color={"green"}/>}
+                        {person.outstanding_amount > 300000 && <AiFillDownCircle color={"orange"}/>}
                     </div>
                 </div>
 

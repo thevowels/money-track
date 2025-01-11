@@ -44,7 +44,7 @@ export default function People({session, setPerson, setTab}) {
                                         tempData[item.person_id] ? tempData[item.person_id] -= item.amount : tempData[item.person_id]= - item.amount;
                                     }
                                 })
-                                setPeople(Pdata.map((item) => {
+                                Pdata.map((item) => {
                                     if(tempData[item.id]){
                                         let k = item;
                                         k["outstanding_amount"]=tempData[item.id];
@@ -52,8 +52,9 @@ export default function People({session, setPerson, setTab}) {
                                     }else{
                                         return item;
                                     }
-                                }));
-
+                                });
+                                Pdata.sort((a,b) => {return b.outstanding_amount - a.outstanding_amount});
+                                setPeople(Pdata);
                             }
                         })
                     setLoading(false);
