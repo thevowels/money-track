@@ -3,14 +3,14 @@ import Table from "react-bootstrap/Table";
 import {supabase} from "../../utils/supabaseClient.js";
 import {format} from "date-fns";
 
-export default function  Transactions({person_id}) {
+export default function  Transactions({person_id, toggle}) {
 
 
     const [loading, setLoading] = useState(false);
     const [transactions, setTransactions] = useState({});
     useEffect(() => {
         fetchTransactions();
-    },[])
+    },[toggle]);
 
     async function fetchTransactions() {
         setLoading(true);

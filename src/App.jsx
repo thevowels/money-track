@@ -78,7 +78,7 @@ function App() {
             {tab === 'pay' && <div className="container-fluid"><Pay session={session}/></div>}
             {tab === 'get' && <div className="container-fluid"> I'm Get</div>}
             {tab === 'person' && !person && <div className="container-fluid">It shouldn't be happened</div>}
-            {tab === 'person' && person && <div className="container-fluid"><PersonDetail person={person}/> </div>}
+            {tab === 'person' && person && <div className="container-fluid"><PersonDetail person={person} session={session}/> </div>}
 
         </div>
         }
