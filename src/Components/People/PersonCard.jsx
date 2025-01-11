@@ -6,7 +6,7 @@ import currency from "currency.js";
 
 export default function PersonCard({person}){
         return (
-        <Card style={{ width: '18rem' }} className="mx-auto">
+        <Card style={{ width: '14rem' }} className="mx-auto">
             <Card.Body>
                 <div className="text-center">
                     <Image src={"/cat.jpg"} width={"150px"} height={"150px"} roundedCircle/>
@@ -38,13 +38,13 @@ export default function PersonCard({person}){
                 {/*    </div>*/}
                 {/*</div>*/}
                 <div className={"row person-money"}>
-                    <div className="col-3 p-0 text-end">
+                    <div className="col-1 p-0 text-end">
 
                     </div>
-                    <div className={"col-5 text-end"}>
+                    <div className={"col-6 text-end"}>
                         {currency(person.outstanding_amount, {separator: ',', symbol: "", precision: 0}).format()}
                     </div>
-                    <div className={"col-2 p-0 "}>
+                    <div className={"col-3 p-0 "}>
                         MMK
                     </div>
                     <div className={"col-2 p-0 text-center"}>

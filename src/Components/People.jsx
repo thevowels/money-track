@@ -203,11 +203,10 @@ export default function People({session, setPerson, setTab}) {
                     <button className="btn btn-outline-primary" onClick={() => setDisplay('add')}>Add New Person</button>
                 </div> : null}
 
-                {people.length > 0 ? <div className={"row gap-2"}>
-                    {people.map(p => <div key={p.id} className={"col mx-auto"} onClick={() =>{
+                {people.length > 0 ? <div className={"row justify-content-start align-items-start"}>
+                    {people.map(p => <div key={p.id} className={"col py-2 px-0 mx-0"} onClick={() =>{
                         setPerson(p);
                         setTab('person')
-
                     }}><PersonCard person={p}></PersonCard></div>)}
                 </div> :null}
             </div>
